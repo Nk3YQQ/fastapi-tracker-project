@@ -1,0 +1,12 @@
+fastapi[all]
+sqlalchemy[asyncio]
+asyncpg
+alembic
+databases
+python-dotenv
+flake8
+typing_extensions
+pydantic
+pytest
+pytest-asyncio
+httpx
