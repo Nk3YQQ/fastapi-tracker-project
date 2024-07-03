@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "first_name": "Test",
+    "last_name": "Testov",
+    "email": "test.testov@mail.ru",
+    "title": "Middle Python-developer",
+    "birth_date": "1999-02-17"
+  },
+  {
+    "id": 2,
+    "first_name": "Ivan",
+    "last_name": "Ivanov",
+    "email": "ivan.ivanov@mail.ru",
+    "title": "Senior Python-developer",
+    "birth_date": "1993-04-09"
+  },
+  {
+    "id": 3,
+    "first_name": "Petr",
+    "last_name": "Petrov",
+    "email": "petr.petrov@mail.ru",
+    "title": "Product Manager",
+    "birth_date": "1985-07-01"
+  },
+  {
+    "id": 4,
+    "first_name": "Sidr",
+    "last_name": "Sidorov",
+    "email": "sidr.sidorov@mail.ru",
+    "title": "Analyst",
+    "birth_date": "1997-01-13"
+  },
+  {
+    "id": 5,
+    "first_name": "Roman",
+    "last_name": "Romanov",
+    "email": "roman.romanov@mail.ru",
+    "title": "Team Lead",
+    "birth_date": "1992-09-26"
+  }
+]

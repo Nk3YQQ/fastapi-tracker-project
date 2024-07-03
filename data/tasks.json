@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Make tests",
+    "status": "pending",
+    "employee_id": 1
+  },
+  {
+    "id": 2,
+    "title": "Create containers",
+    "status": "pending",
+    "employee_id": 2
+  },
+  {
+    "id": 3,
+    "title": "Make linters",
+    "status": "received",
+    "employee_id": 2
+  },
+  {
+    "id": 4,
+    "title": "Communicate with customer",
+    "status": "pending",
+    "employee_id": 3
+  },
+  {
+    "id": 5,
+    "title": "Make a project structure",
+    "status": "completed",
+    "employee_id": 5
+  }
+]
