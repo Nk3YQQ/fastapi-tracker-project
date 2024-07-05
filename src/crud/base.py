@@ -11,6 +11,7 @@ class CRUD:
         self.session = SessionManager(db)
 
     async def create_instance(self, requested_data: BaseModel):
+        """ Создание сущности """
         data = requested_data.model_dump()
 
         if "employee_id" and "parent_task_id" in data.keys():
@@ -30,16 +31,19 @@ class CRUD:
         return instance
 
     async def read_all_instances(self, skip: int = 0, limit: int = 10):
+        """ Чтение всех сущностей """
         instance_list = await self.session.all(self.model, skip, limit)
 
         return instance_list
 
     async def read_one_instance(self, instance_id: int):
+        """ Чтение одной сущности """
         instance = await self.session.get(self.model, instance_id)
 
         return instance
 
     async def update_instance(self, instance_id: int, requested_data: BaseModel):
+        """ Обновление сущности """
         data = requested_data.model_dump()
 
         updated_instance = await self.session.update(self.model, instance_id, data)
@@ -47,4 +51,5 @@ class CRUD:
         return updated_instance
 
     async def delete_instance(self, instance_id: int):
+        """ Удаление сущности """
         await self.session.delete(self.model, instance_id)

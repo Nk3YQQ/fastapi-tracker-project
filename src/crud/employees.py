@@ -7,6 +7,7 @@ from src.models import Employee
 
 
 class EmployeeCRUD(CRUD):
+    """ CRUD для сотрудников """
     model = Employee
 
     def __init__(self, db: AsyncSession = Depends(get_db)):

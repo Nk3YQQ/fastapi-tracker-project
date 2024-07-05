@@ -102,7 +102,6 @@ class EmployeesTasks(BaseModel):
 
 class ImportantTask(BaseModel):
     """ Модель для важных задач """
-
     title: str
     deadline: date
     employees: list[str] = []

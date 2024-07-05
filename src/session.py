@@ -15,9 +15,11 @@ class SessionManager:
         """ Создание объекта """
         try:
             self.db.add(instance)
+
         except Exception as e:
             await self.db.rollback()
             raise ValueError(f'Ошибка в добавлении сущности: {e}')
+
         finally:
             await self.db.commit()
             await self.db.refresh(instance)
@@ -27,6 +29,7 @@ class SessionManager:
         try:
             result = await self.db.execute(select(model).offset(skip).limit(limit))
             return result.scalars().all()
+
         except Exception as e:
             await self.db.rollback()
             raise ValueError(f'Ошибка в чтение всех сущностей: {e}')
@@ -36,6 +39,7 @@ class SessionManager:
         try:
             result = await self.db.execute(select(model).filter(model.id == instance_id))
             return result.scalars().first()
+
         except Exception as e:
             await self.db.rollback()
             raise ValueError(f'Ошибка в чтении сущности: {e}')
@@ -65,9 +69,11 @@ class SessionManager:
         try:
             instance = await self.db.get(model, instance_id)
             await self.db.delete(instance)
+
         except Exception as e:
             await self.db.rollback()
             raise ValueError(f'Ошибка в удалении сущности: {e}')
+
         finally:
             await self.db.commit()
 
@@ -82,6 +88,7 @@ class SessionTwoObjectManager:
         self.task = task_model
 
     async def get_employees_tasks(self):
+        """ Получает сотрудников вместе с задачами """
         status_filter_condition = or_(self.task.id.is_(None), self.task.status.in_([Status.received, Status.pending]))
 
         statement = (
@@ -98,6 +105,7 @@ class SessionTwoObjectManager:
         return results.unique().scalars().all()
 
     async def get_important_tasks(self):
+        """ Получает важные задачи """
         subquery = (
             select(self.task.parent_task_id)
             .where(self.task.status.in_(["pending", "received"]))
@@ -121,6 +129,7 @@ class SessionTwoObjectManager:
         return results.unique().scalars().all()
 
     async def get_less_working_employee(self):
+        """ Получает менее занятых работников """
         tasks_counts_subquery = (
             select(self.task.employee_id.label('employee_id'), func.count(self.task.id).label('task_count'))
             .group_by(self.task.employee_id)
@@ -155,6 +164,7 @@ class SessionTwoObjectManager:
         return results.unique().scalars().all()
 
     async def get_potential_employing_task(self):
+        """ Объединение двух методов выше и получение результата """
         important_tasks = await self.get_important_tasks()
 
         less_working_employees = await self.get_less_working_employee()

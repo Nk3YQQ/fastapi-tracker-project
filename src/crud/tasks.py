@@ -7,6 +7,7 @@ from src.models import Task
 
 
 class TaskCRUD(CRUD):
+    """ CRUD для задач """
     model = Task
 
     def __init__(self, db: AsyncSession = Depends(get_db)):
