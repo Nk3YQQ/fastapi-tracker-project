@@ -13,3 +13,9 @@ container-tests:
 	docker-compose exec -T app flake8 src/
 	docker-compose exec -T app flake8 tests/
 	docker-compose down --volumes
+
+run:
+	docker-compose up --build -d
+
+stop:
+	docker-compose down --volumes
