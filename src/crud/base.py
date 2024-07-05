@@ -1,17 +1,23 @@
 from pydantic import BaseModel
-
+from src.session import SessionManager
 from src.utils import check_object_or_400, generate_new_id
 
 
 class CRUD:
     """ Класс для CRUD-операций """
+    model = None
 
-    def __init__(self, session, model):
-        self.model = model
-        self.session = session
+    def __init__(self, db):
+        self.session = SessionManager(db)
 
     async def create_instance(self, requested_data: BaseModel):
         data = requested_data.model_dump()
+
+        if "employee_id" and "parent_task_id" in data.keys():
+            if data["employee_id"] == 0:
+                data["employee_id"] = None
+            elif data["parent_task_id"] == 0:
+                data["parent_task_id"] = None
 
         new_instance = self.model(**data)
         instance_list = await self.read_all_instances()

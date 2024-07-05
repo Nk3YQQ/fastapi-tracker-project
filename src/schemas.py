@@ -14,11 +14,16 @@ class Status(str, Enum):
     completed = "completed"
 
 
+status = Annotated[Status, Field(default="received")]
+
+
 class TaskBaseModel(BaseModel):
     """ Базовая модель для задачи """
     title: str_50
-    status: Status
-    employee_id: int
+    status: status
+    deadline: date
+    employee_id: int | None = None
+    parent_task_id: int | None = None
 
     model_config = ConfigDict(use_enum_values=True)
 
@@ -44,7 +49,9 @@ class TaskPatch(BaseModel):
     """ Модель для PATCH-запроса задачи """
     title: str_50 | None = None
     status: Status | None = None
+    deadline: date | None = None
     employee_id: int | None = None
+    parent_task_id: int | None = None
 
 
 class EmployeeBaseModel(BaseModel):
@@ -64,7 +71,6 @@ class EmployeeCreate(EmployeeBaseModel):
 class Employee(EmployeeBaseModel):
     """ Модель для GET-запроса сотрудника """
     id: int
-    # tasks: list[Task] = []
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -81,3 +87,22 @@ class EmployeePatch(BaseModel):
     email: str | None = None
     title: str | None = None
     birth_date: date | None = None
+
+
+class EmployeesTasks(BaseModel):
+    """ Модель для сотрудников и их задач """
+    id: int
+    first_name: str
+    last_name: str
+    email: str
+    title: str
+    birth_date: date
+    tasks: list[Task] = []
+
+
+class ImportantTask(BaseModel):
+    """ Модель для важных задач """
+
+    title: str
+    deadline: date
+    employees: list[str] = []

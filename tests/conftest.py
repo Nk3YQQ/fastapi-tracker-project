@@ -54,28 +54,26 @@ async def async_client() -> AsyncGenerator[AsyncSession, None]:
         yield client
 
 
-@pytest.fixture()
+@pytest.fixture
 def employee_list() -> list[dict]:
     return open_json_file(EMPLOYEE_DATA_PATH)
 
 
-@pytest.fixture()
+@pytest.fixture
 def tasks_list() -> list[dict]:
     return open_json_file(TASKS_DATA_PATH)
 
 
-@pytest.fixture()
+@pytest.fixture
 def employee_payload_updated() -> dict:
     return {
         "first_name": "Anton",
         "last_name": "Antonov",
-        "email": "anton.antonov@mail.ru",
-        "title": "Java-developer",
-        "birth_date": "1997-04-24"
+        "title": "Java-developer"
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def task_payload_updated() -> dict:
     return {
         "title": "Analyze app working",

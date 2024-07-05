@@ -1,32 +1,50 @@
 [
   {
     "id": 1,
-    "title": "Make tests",
+    "title": "Make deploy",
     "status": "pending",
-    "employee_id": 1
+    "deadline": "2024-07-18",
+    "employee_id": null,
+    "parent_task_id": null
   },
   {
     "id": 2,
-    "title": "Create containers",
+    "title": "Make tests",
     "status": "pending",
-    "employee_id": 2
+    "deadline": "2024-07-06",
+    "employee_id": 1,
+    "parent_task_id": 1
   },
   {
     "id": 3,
-    "title": "Make linters",
-    "status": "received",
-    "employee_id": 2
+    "title": "Create containers",
+    "status": "pending",
+    "deadline": "2024-07-16",
+    "employee_id": 2,
+    "parent_task_id": 1
   },
   {
     "id": 4,
-    "title": "Communicate with customer",
-    "status": "pending",
-    "employee_id": 3
+    "title": "Make linters",
+    "status": "received",
+    "deadline": "2024-07-13",
+    "employee_id": 2,
+    "parent_task_id": 1
   },
   {
     "id": 5,
+    "title": "Communicate with customer",
+    "status": "pending",
+    "deadline": "2024-07-20",
+    "employee_id": 3,
+    "parent_task_id": null
+  },
+  {
+    "id": 6,
     "title": "Make a project structure",
     "status": "completed",
-    "employee_id": 5
+    "deadline": "2024-07-05",
+    "employee_id": 5,
+    "parent_task_id": null
   }
 ]

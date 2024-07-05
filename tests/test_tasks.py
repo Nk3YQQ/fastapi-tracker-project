@@ -19,16 +19,16 @@ async def test_read_all_task(async_client: AsyncClient) -> None:
 
     content = response.json()
 
-    assert len(content) == 5
+    assert len(content) == 6
 
     pending_tasks = list(task for task in content if task['status'] == 'pending')
 
-    assert len(pending_tasks) == 3
+    assert len(pending_tasks) == 4
 
 
 @pytest.mark.asyncio(scope='module')
 async def test_read_one_task(async_client: AsyncClient) -> None:
-    task_id = 2
+    task_id = 3
 
     response = await async_client.get(f"/tasks/{task_id}")
     assert response.status_code == status.HTTP_200_OK
@@ -38,16 +38,6 @@ async def test_read_one_task(async_client: AsyncClient) -> None:
     assert content.get('title') == "Create containers"
     assert content.get('status') == "pending"
     assert content.get('employee_id') == 2
-
-
-@pytest.mark.asyncio(scope='module')
-async def test_update_task(async_client: AsyncClient, task_payload_updated: dict) -> None:
-    # task_id = 3
-    #
-    # response = await async_client.put(f"/tasks/{task_id}", json=task_payload_updated)
-    #
-    # assert response.status_code == status.HTTP_200_OK
-    pass
 
 
 @pytest.mark.asyncio(scope='module')
