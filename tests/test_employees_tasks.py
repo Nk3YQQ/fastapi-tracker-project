@@ -8,7 +8,7 @@ async def test_create_tasks_and_employees(
         async_client: AsyncClient,
         tasks_list: list[dict],
         employee_list: list[dict]) -> None:
-
+    """ Создание сотрудников и задач для будущих операций """
     for employee_data in employee_list:
         await async_client.post("/employees/", json=employee_data)
     for task_data in tasks_list:
@@ -18,6 +18,7 @@ async def test_create_tasks_and_employees(
 
 @pytest.mark.asyncio(scope='module')
 async def test_get_employees_tasks(async_client: AsyncClient) -> None:
+    """ Тестирование чтения сотрудников с задачами """
     response = await async_client.get('/employees/tasks/')
 
     assert response.status_code == status.HTTP_200_OK
@@ -44,6 +45,7 @@ async def test_get_employees_tasks(async_client: AsyncClient) -> None:
 
 @pytest.mark.asyncio(scope='module')
 async def test_get_potential_employing_task(async_client: AsyncClient) -> None:
+    """ Тестирование чтения потенциальных сотрудников для важных задач """
     response = await async_client.get('/employees/tasks/important_tasks')
 
     assert response.status_code == status.HTTP_200_OK

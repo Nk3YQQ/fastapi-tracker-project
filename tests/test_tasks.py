@@ -5,6 +5,7 @@ from fastapi import status
 
 @pytest.mark.asyncio(scope='module')
 async def test_create_task(async_client: AsyncClient, tasks_list: list[dict], employee_list: list[dict]) -> None:
+    """ Тестирование создание задачи """
     for employee_data in employee_list:
         await async_client.post("/employees/", json=employee_data)
     for task_data in tasks_list:
@@ -14,6 +15,7 @@ async def test_create_task(async_client: AsyncClient, tasks_list: list[dict], em
 
 @pytest.mark.asyncio(scope='module')
 async def test_read_all_task(async_client: AsyncClient) -> None:
+    """ Тестирование чтения всех задач """
     response = await async_client.get("/tasks/")
     assert response.status_code == status.HTTP_200_OK
 
@@ -28,6 +30,7 @@ async def test_read_all_task(async_client: AsyncClient) -> None:
 
 @pytest.mark.asyncio(scope='module')
 async def test_read_one_task(async_client: AsyncClient) -> None:
+    """ Тестирование чтения одной задачи """
     task_id = 3
 
     response = await async_client.get(f"/tasks/{task_id}")
@@ -42,6 +45,7 @@ async def test_read_one_task(async_client: AsyncClient) -> None:
 
 @pytest.mark.asyncio(scope='module')
 async def test_delete_task(async_client: AsyncClient) -> None:
+    """ Тестирование удаления задачи """
     task_id = 3
 
     response = await async_client.delete(f"/tasks/{task_id}")

@@ -29,6 +29,7 @@ async_session_maker = async_sessionmaker(autocommit=False, autoflush=False, bind
 
 
 async def override_get_db() -> AsyncGenerator[AsyncSession, None]:
+    """ Создание тестового шлюза с базой данных """
     async with async_session_maker() as session:
         yield session
 
@@ -38,6 +39,7 @@ app.dependency_overrides[get_db] = override_get_db
 
 @pytest.fixture(autouse=True, scope="session")
 async def prepare_database():
+    """ Подготовка базы данных """
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
@@ -49,6 +51,7 @@ async def prepare_database():
 
 @pytest.fixture(scope="session")
 async def async_client() -> AsyncGenerator[AsyncSession, None]:
+    """ Создание асинхронного клиента для тестовых запросов """
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url='http://test') as client:
         yield client
@@ -56,27 +59,11 @@ async def async_client() -> AsyncGenerator[AsyncSession, None]:
 
 @pytest.fixture
 def employee_list() -> list[dict]:
+    """ Фикстура со списком сотрудников """
     return open_json_file(EMPLOYEE_DATA_PATH)
 
 
 @pytest.fixture
 def tasks_list() -> list[dict]:
+    """ Фикстура со списком задач """
     return open_json_file(TASKS_DATA_PATH)
-
-
-@pytest.fixture
-def employee_payload_updated() -> dict:
-    return {
-        "first_name": "Anton",
-        "last_name": "Antonov",
-        "title": "Java-developer"
-    }
-
-
-@pytest.fixture
-def task_payload_updated() -> dict:
-    return {
-        "title": "Analyze app working",
-        "status": "received",
-        "employee_id": 4
-    }

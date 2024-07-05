@@ -5,6 +5,7 @@ from httpx import AsyncClient
 
 @pytest.mark.asyncio(scope='module')
 async def test_create_employee(async_client: AsyncClient, employee_list: list[dict]) -> None:
+    """ Тестирование создание сотрудников """
     for employee_data in employee_list:
         response = await async_client.post("/employees/", json=employee_data)
         assert response.status_code == status.HTTP_201_CREATED
@@ -12,6 +13,7 @@ async def test_create_employee(async_client: AsyncClient, employee_list: list[di
 
 @pytest.mark.asyncio(scope='module')
 async def test_read_all_employees(async_client: AsyncClient) -> None:
+    """ Тестирование чтения всех сотрудников """
     response = await async_client.get("/employees/")
     assert response.status_code == status.HTTP_200_OK
 
@@ -22,6 +24,7 @@ async def test_read_all_employees(async_client: AsyncClient) -> None:
 
 @pytest.mark.asyncio(scope='module')
 async def test_read_one_employee(async_client: AsyncClient) -> None:
+    """ Тестирование чтения одного сотрудника """
     employee_id = 2
 
     response = await async_client.get(f"/employees/{employee_id}")
@@ -38,6 +41,7 @@ async def test_read_one_employee(async_client: AsyncClient) -> None:
 
 @pytest.mark.asyncio(scope='module')
 async def test_delete_employee(async_client: AsyncClient) -> None:
+    """ Тестирование удаления сотрудника """
     employee_id = 3
 
     response = await async_client.delete(f"/employees/{employee_id}")
