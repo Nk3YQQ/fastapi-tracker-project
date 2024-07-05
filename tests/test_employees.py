@@ -37,16 +37,6 @@ async def test_read_one_employee(async_client: AsyncClient) -> None:
 
 
 @pytest.mark.asyncio(scope='module')
-async def test_update_employee(async_client: AsyncClient, employee_payload_updated: dict) -> None:
-    # employee_id = 3
-    #
-    # response = await async_client.patch(f"/employees/{employee_id}", json=employee_payload_updated)
-    #
-    # assert response.status_code == status.HTTP_200_OK
-    pass
-
-
-@pytest.mark.asyncio(scope='module')
 async def test_delete_employee(async_client: AsyncClient) -> None:
     employee_id = 3
 
