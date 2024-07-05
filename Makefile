@@ -10,3 +10,4 @@ migrate:
 test:
 	pytest tests/test_employees.py
 	pytest tests/test_tasks.py
+	pytest tests/test_employees_tasks.py
