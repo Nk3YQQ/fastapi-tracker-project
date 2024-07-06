@@ -36,7 +36,6 @@ def get_object_or_404(instance, model):
     """ Проверка объекта или возвращение ошибки 404 """
     if not instance:
         raise HTTPException(status_code=404, detail=f'{model.__class__} not found')
-    return instance
 
 
 def open_json_file(filepath):
