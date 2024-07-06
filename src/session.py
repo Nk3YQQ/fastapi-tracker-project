@@ -44,11 +44,9 @@ class SessionManager:
             await self.db.rollback()
             raise ValueError(f'Ошибка в чтении сущности: {e}')
 
-    async def update(self, model, instance_id: int, data: dict):
+    async def update(self, instance, data: dict):
         """ Обновление объекта """
         try:
-            instance = await self.db.get(model, instance_id)
-
             for key, value in data.items():
                 if hasattr(instance, key) and value:
                     setattr(instance, key, value)
@@ -64,10 +62,9 @@ class SessionManager:
         finally:
             await self.db.commit()
 
-    async def delete(self, model, instance_id: int):
+    async def delete(self, instance):
         """ Удаление объекта """
         try:
-            instance = await self.db.get(model, instance_id)
             await self.db.delete(instance)
 
         except Exception as e:

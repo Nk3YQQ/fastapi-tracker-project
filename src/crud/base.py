@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from src.session import SessionManager
-from src.utils import check_object_or_400, generate_new_id
+from src.utils import check_object_or_400, generate_new_id, get_object_or_404
 
 
 class CRUD:
@@ -40,16 +40,22 @@ class CRUD:
         """ Чтение одной сущности """
         instance = await self.session.get(self.model, instance_id)
 
+        get_object_or_404(instance, self.model)
+
         return instance
 
     async def update_instance(self, instance_id: int, requested_data: BaseModel):
         """ Обновление сущности """
+        instance = await self.read_one_instance(instance_id)
+
         data = requested_data.model_dump()
 
-        updated_instance = await self.session.update(self.model, instance_id, data)
+        updated_instance = await self.session.update(instance, data)
 
         return updated_instance
 
     async def delete_instance(self, instance_id: int):
         """ Удаление сущности """
-        await self.session.delete(self.model, instance_id)
+        instance = await self.read_one_instance(instance_id)
+
+        await self.session.delete(instance)
